@@ -1,5 +1,6 @@
-// Ethan Rich
 /**
+ * Ethan Rich
+ *
  * Full disclosure, I am following the tutorial for making a JS Discord Bot from "discordjs.guide". The following code was based around their
  * work. I do not try to claim I own this material.
  */
@@ -20,6 +21,7 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
+// Set every command to ready
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
 	const command = require(filePath);
@@ -28,6 +30,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.data.name, command);
 }
 
+// Set every event to be ready
 for (const file of eventFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
@@ -38,6 +41,7 @@ for (const file of eventFiles) {
 	}
 }
 
+// If there's an interaction, check to see if it's a command. If it is, then run it.
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 
